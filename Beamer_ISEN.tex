@@ -1,0 +1,266 @@
+%--- Packages ------------------------------------------------------------------
+\usepackage[english, french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{subfiles}
+\usepackage{subfig}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{eurosym}
+\usepackage{amsfonts}
+\usepackage{fontawesome}
+\usepackage{amsthm}
+\usepackage{upquote}
+\usepackage{empheq}
+\usepackage{bigints}
+\usepackage{pdfpages}
+\usepackage{fancyhdr}
+\usepackage{textcomp}
+\usepackage{etoolbox}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{alltt}
+\usepackage{colortbl}
+\usepackage{url}
+\usepackage{placeins}
+\usepackage{lastpage}
+\usepackage{pgf-pie}
+\usepackage{ulem}
+\usepackage{mdframed}
+\usepackage{hyperref}
+\usepackage{xifthen}
+\usepackage{ragged2e}
+\usepackage{setspace}
+\usepackage{iflang}
+\usepackage{multimedia}
+\usepackage{lcg}
+
+%--- Colors --------------------------------------------------------------------
+\pdfpageattr{/Group << /S /Transparency /I true /CS /DeviceRGB>>}
+% \def\setbeamercovered{invisible}
+% \def\setbeamercovered{transparent}
+\usetheme{Frankfurt}
+\usecolortheme{default}
+\definecolor{redisen}{RGB}{227, 6, 19}
+\definecolor{grayisen}{RGB}{192, 196, 208}
+\definecolor{grayisen1}{RGB}{172,176,188}
+\definecolor{grayisen2}{RGB}{92,96,108}
+\definecolor{myblue}{HTML}{4F81BD}
+\definecolor{myred}{HTML}{C0504D}
+\definecolor{mygreen}{HTML}{9BBB59}
+\definecolor{myorange}{HTML}{F89646}
+\definecolor{mycyan}{HTML}{4BACC6}
+\definecolor{myviolet}{HTML}{8064A2}
+\definecolor{umlColor}{RGB}{222, 222, 222}
+\definecolor{monokaiBg}{RGB}{40, 40, 40}
+\usefonttheme{professionalfonts}
+
+%--- Item style ----------------------------------------------------------------
+% Redefining beamer itemize.
+\makeatletter
+\renewcommand{\itemize}[1][]{
+  \beamer@ifempty{#1}{}{\def\beamer@defaultospec{#1}}
+  \ifnum \@itemdepth >2\relax\@toodeep\else
+    \advance\@itemdepth\@ne
+    \beamer@computepref\@itemdepth
+    \usebeamerfont{itemize/enumerate \beameritemnestingprefix body}
+    \usebeamercolor[fg]{itemize/enumerate \beameritemnestingprefix body}
+    \usebeamertemplate{itemize/enumerate \beameritemnestingprefix body begin}
+    \list
+      {\usebeamertemplate{itemize \beameritemnestingprefix item}}
+      {\def\makelabel##1{
+          {
+            \hss\llap{{
+                \usebeamerfont*{itemize \beameritemnestingprefix item}
+                \usebeamercolor[fg]{itemize \beameritemnestingprefix item}##1}}
+          }
+        }
+      }
+  \fi
+  \beamer@cramped
+  \justifying
+  \beamer@firstlineitemizeunskip%
+}
+\makeatother
+
+%--- Beamer style --------------------------------------------------------------
+% Justify text.
+\apptocmd{\frame}{}{\justifying}{}
+\addtobeamertemplate{block begin}{}{\justifying}
+
+% Colors.
+\setbeamercolor{title}{fg=white, bg=grayisen1}
+\setbeamercolor{frametitle}{fg=black, bg=white}
+\setbeamercolor{section in head/foot}{fg=black, bg=grayisen1}
+\setbeamercolor{whiteongrey}{fg=white, bg=grayisen1}
+\setbeamercolor{whiteonred}{fg=white, bg=redisen}
+\setbeamercolor{structure}{bg=white, fg=grayisen}
+\setbeamercolor{item projected}{bg=redisen}
+
+% Header/Footer size.
+\setbeamerfont{footline}{size=\fontsize{7}{7}\selectfont}
+\setbeamerfont{headline}{size=\fontsize{7}{7}\selectfont}
+
+% Toc preferences.
+\setbeamercolor{section in toc}{fg=grayisen2}
+\setbeamertemplate{sections/subsections in toc}[circle]
+\setbeamercolor{section number projected}{bg=redisen, fg=white}
+
+% Items.
+\setbeamertemplate{itemize item}{$\bullet$}
+\setbeamercolor{itemize item}{fg=grayisen1}
+
+% Figure/Table captions.
+\setbeamercolor{caption name}{fg=grayisen2}
+\setbeamertemplate{caption}[numbered]
+
+% Paragraph title.
+\newcommand{\partitle}[1]{\noindent\textcolor{redisen}{\textbf{#1}}}
+\renewcommand{\indent}{\hspace{0.5cm}}
+
+%--- Frame header --------------------------------------------------------------
+\makeatletter
+\setbeamertemplate{frametitle}
+{
+  \ifbeamer@plainframe
+  \else
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=0.3cm, ht=3.2em, wd=\paperwidth]{frametitle}
+      \vbox{}
+      \vskip-2ex
+      \strut\insertframetitle\strut
+      \hfill
+      \begin{tikzpicture}[remember picture, overlay]
+        \node at (-0.7,0.1) {\includegraphics[width=2cm]{Images/Logo_ISEN_Brest.jpg}};
+      \end{tikzpicture}
+      \vskip-0.8ex
+      \strut\small\insertframesubtitle\strut
+    \end{beamercolorbox}
+  \fi
+}
+\CheckCommand*\beamer@checkframetitle{\@ifnextchar\bgroup\beamer@inlineframetitle{}}
+\renewcommand*\beamer@checkframetitle{\global\let\beamer@frametitle\relax\@ifnextchar\bgroup\beamer@inlineframetitle{}}
+
+% Add section and subsection titles.
+\addtobeamertemplate{frametitle}{
+  \ifx\insertframetitle\empty
+    \ifx\insertframesubtitle\empty
+      \ifx\insertsubsection\empty
+        \frametitle{\insertsectionhead}
+      \else
+        \frametitle{\insertsectionhead}\framesubtitle{\insertsubsectionhead}
+      \fi
+    \else
+    \fi
+  \else
+  \fi
+}{}
+\makeatother
+
+%--- Frame header --------------------------------------------------------------
+\addtobeamertemplate{headline}{}{
+  % Progress bar.
+  \begin{beamercolorbox}[ht=0.05cm, wd=\dimexpr\paperwidth*\insertframenumber/\inserttotalframenumber\relax]{whiteonred}
+  \end{beamercolorbox}
+}
+
+%--- Frame footer --------------------------------------------------------------
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{\hspace{-0.2cm}
+    \begin{beamercolorbox}[wd=0.2\paperwidth, ht=2.4ex, dp=1ex, center]{whiteonred}
+      \usebeamerfont{whiteonred} \name
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=0.6\paperwidth, ht=2.4ex, dp=1ex, center]{whiteongrey}
+      \usebeamerfont{whiteongrey} \longtitle~-~\shorttitle
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=0.2\paperwidth, ht=2.4ex, dp=1ex, left]{whiteonred}
+      \hspace{0.05cm}
+      \usebeamerfont{whiteonred} \laclasse
+      \hspace{0pt plus 1 filll}
+      \insertframenumber{}{}
+      \hspace{0.2cm}
+    \end{beamercolorbox}
+  }
+  \vskip0pt
+}
+
+%--- TOC before sections -------------------------------------------------------
+\AtBeginSection[]
+{
+    \begin{frame}{\IfLanguageName{english}{Outlines}{Sommaire}}
+      \null
+      \vspace{-1.6cm}
+      \tableofcontents[currentsection, currentsubsection, hideothersubsections]
+    \end{frame}
+}
+
+%--- Animations ----------------------------------------------------------------
+\newcommand{\fade}[1]{{\color<2>{grayisen}{#1}}}
+
+%--- Title ---------------------------------------------------------------------
+\newcommand{\makeMyTitle}{
+  % PDF metadata.
+  \hypersetup{
+    pdftitle={\longtitle~-~\shorttitle},
+	  pdfauthor={\name}
+  }
+
+  % Title.
+  {
+    \usebackgroundtemplate{\includegraphics[width=\paperwidth, height=\paperheight]{Images/Background1_ISEN.jpg}}
+    \begin{frame}[plain]
+      \vspace{4cm}
+      \begin{center}
+        \textcolor{white}{\huge{\longtitle}\\\large{\shorttitle}}
+      \end{center}
+      \vspace{0pt plus 1 filll}
+      \hspace{-0.9cm}
+      \vspace{-0.08cm}
+      \begin{minipage}{\paperwidth - 0.4cm}
+          \textcolor{white}{\textit{\footnotesize{\ecole \hfill \email}}}
+      \end{minipage}
+      \setcounter{framenumber}{0}
+    \end{frame}
+  }
+}
+
+%--- Outlines ------------------------------------------------------------------
+\newcommand{\makeMyOutlines}{
+  \begin{frame}
+    \frametitle{\IfLanguageName{english}{Outlines}{Sommaire}}
+    \null
+    \vspace{-1.8cm}
+    \tableofcontents[hideallsubsections]
+  \end{frame}
+}
+
+%--- Questions -----------------------------------------------------------------
+\newcommand{\makeMyQuestions}[1][]{
+  {
+    \section*{}
+    \usebackgroundtemplate{\includegraphics[width=\paperwidth, height=\paperheight]{Images/Background2_ISEN.jpg}}
+    \begin{frame}[plain]
+      \addtocounter{framenumber}{-1}
+      \vspace{3.8cm}
+      \begin{center}
+        \textcolor{white}{\huge{
+          \IfLanguageName{english}{Do you have any questions?}{Avez vous des questions ?}
+        }}
+      \end{center}
+      \hspace{0.7\textwidth}
+      \begin{minipage}[t][3.3cm][t]{\textwidth}
+        \tiny
+        \vfill
+        \ifthenelse{\isempty{#1}}{~}{#1}
+        \vspace{0.5cm}
+      \end{minipage}
+      \null
+      \hspace{-0.9cm}
+      \begin{minipage}{\paperwidth - 0.4cm}
+        \textcolor{white}{\textit{\footnotesize{\ecole \hfill \email}}}
+      \end{minipage}
+    \end{frame}
+  }
+}

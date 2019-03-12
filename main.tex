@@ -1,0 +1,51 @@
+\documentclass[10pt, french]{beamer}
+\input{Beamer_ISEN.tex}
+\input{Identity.tex}
+
+%--- Header --------------------------------------------------------------------
+\newcommand{\laclasse}{M2}
+\newcommand{\longtitle}{Présentation de mi-alternance}
+\newcommand{\shorttitle}{\textit{Niji}}
+
+%--- Start document ------------------------------------------------------------
+\begin{document}
+\selectlanguage{french}
+\makeMyTitle
+\makeMyOutlines
+
+%--- Section 1 -----------------------------------------------------------------
+\section{Section 1}
+\subsection{Sous-section 1}
+\begin{frame}
+	\begin{block}{Définition}
+		Exemple de définition.
+	\end{block}
+	\partitle{Titre paragaphe 1 :}\\
+	\indent Paragraphe 1\\
+	\begin{itemize}
+		\item Item 1.
+		\item Item 2.
+	\end{itemize}
+  \partitle{Titre paragaphe 2 :}\\
+	\indent Paragaphe 2 :\\
+	\centerline{\textcolor{redisen}{\textbf{\textit{Exemple}}}}
+\end{frame}
+
+\subsection{Sous-section 2}
+\begin{frame}
+\end{frame}
+
+%--- Section 2 -----------------------------------------------------------------
+\section{Section 2}
+\subsection{Sous-section 1}
+\begin{frame}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/Logo_ISEN_Brest.jpg}
+    \caption{\textit{Ma légende}}
+  \end{figure}
+\end{frame}
+
+\makeMyQuestions
+
+\end{document}
