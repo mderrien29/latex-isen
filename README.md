@@ -22,13 +22,14 @@ Les features sont variées : logos, pagination, parties et sous-parties, listes.
 
 # Installation
 
-Téléchargez le projet.
+Téléchargez le projet (soit en zip, soit ssh via `git`, comme vous voulez)
 
 ## Linux
 
 Déplacez vous dans le dossier téléchargé et faites un :
 
 ```shell
+sudo apt install make
 make install
 ```
 
